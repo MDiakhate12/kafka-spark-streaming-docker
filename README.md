@@ -22,15 +22,19 @@ You can then dive deeper into code and play around with it to get your hands dir
 > Note: A fully dockerized version will be available soon 😊, this will eliminate the need of version requirements 
 
 Please make sure those versions are installed on your computer:
-*   docker >= 19.X.X
-*   docker-compose ~1.29.2
-*   python3 ~3.8.10
-*   python3-v
-*   pip ~20.0.2 (pip3)
-*   scala =2.12.15 (important !)
-*   sbt =1.5.5 (important !)
-*   node ~14.X.X
-*   npm ~8.X.X
+
+*   Docker & Docker Compose (https://docs.docker.com/engine/install/ubuntu/)
+    *   docker >= 19.X.X 
+    *   docker-compose ~1.29.2
+*   Python, Pip3 & Python3 Virtual Env (sudo apt update && sudo apt install python3 python3-pip python3-venv)
+    *   python3 ~3.8.10 
+    *   pip ~20.0.2 (pip3)
+*   Scala and SBT (https://docs.scala-lang.org/getting-started/index.html)
+    *   scala =2.12.15 (important !) 
+    *   sbt =1.5.5 (important !) 
+*   NodeJS & npm (https://github.com/nodesource/distributions#installation-instructions)
+    *   node ~14.X.X 
+    *   npm ~8.X.X
 
 > Please make sure:
 *   you can run commands with root privileges on your computer
