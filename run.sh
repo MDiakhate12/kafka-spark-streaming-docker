@@ -27,7 +27,7 @@ echo "# Create jar file and copy it into jars_dir"
 cd spark-streaming/scala && \
  sbt package && \
  cp target/scala-2.12/spark-streaming-with-kafka_2.12-1.0.jar ../../jars_dir/ && \
- cd ..
+ cd ../../
 
 echo "# Execute the application with spark-submit"
 docker exec -it spark \
