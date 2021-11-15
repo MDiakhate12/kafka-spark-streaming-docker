@@ -91,12 +91,12 @@ sudo chmod +x run.sh clean-env.sh
 ```
 source run.sh
 ```
-> !Important: Don't close the terminal after you have executed run.sh
+> !Important: Don't close the terminal after you have executed run.sh <br>
 > Note: You might be prompted to enter your root password if your user do not have enough privileges
 
 ### 4. Execute one or two producers
-> Note: Please replace /PATH/TO/YOUR/FOLDER with the folder your have cloned the repo into.
-> Note: The NodeJS and Python consumers can be run the same way list below
+> Note: Please replace /PATH/TO/YOUR/FOLDER with the folder your have cloned the repo into. <br>
+> Note: The NodeJS and Python consumers can be run the same way list below.
 
 Open another terminal and do:
 
