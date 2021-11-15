@@ -1,4 +1,6 @@
-# Streaming data from Kafka Topic to Spark using Spark Structured Streaming
+# Streaming data from Kafka Topic to Spark using Spark Structured Streaming V2.0
+
+This version is optimized to be more lightweight. Everything runs from one simple command. There is no dependency on your computer to have apart from docker and docker-compose.
 
 ## Workflow
 
@@ -19,22 +21,9 @@ You can then dive deeper into code and play around with it to get your hands dir
 
 ## Requirements
 
-> Note: A fully dockerized version will be available soon 😊, this will eliminate the need of version requirements 
-
-Please make sure those versions are installed on your computer:
-
 *   Docker & Docker Compose (https://docs.docker.com/engine/install/ubuntu/)
     *   docker >= 19.X.X 
     *   docker-compose ~1.29.2
-*   Python, Pip3 & Python3 Virtual Env (`sudo apt update && sudo apt install python3 python3-pip python3-venv`)
-    *   python3 ~3.8.10 
-    *   pip ~20.0.2 (pip3)
-*   Scala and SBT (https://docs.scala-lang.org/getting-started/index.html)
-    *   scala =2.12.15 (important !) 
-    *   sbt =1.5.5 (important !) 
-*   NodeJS & npm (https://github.com/nodesource/distributions#installation-instructions)
-    *   node ~14.X.X 
-    *   npm ~8.X.X
 
 > Please make sure:
 *   you can run commands with root privileges on your computer
@@ -42,26 +31,29 @@ Please make sure those versions are installed on your computer:
 *   the subnet 172.18.0.0/24 is not in use in your computer
 
 ## Project folder structure
-```bash
+
+```
 .
+├── architecture.png........ # Architecture of the project
 ├── clean-env.sh............ # Cleans the environment
 ├── docker-compose.yml...... # Create kafka and spark clusters
 ├── nodejs-consumer......... # Consumes messages from kafka
 │   ├── consumer.js
-│   ├── node_modules
+│   ├── Dockerfile
 │   ├── package.json
 │   └── package-lock.json
 ├── nodejs-producer......... # Produces messages to kafka
-│   ├── node_modules
+│   ├── Dockerfile
 │   ├── package.json
-│   ├── package-lock.json
 │   └── producer.js
 ├── python-consumer......... # Consumes messages to kafka
-│   └── consumer.py
+│   ├── consumer.py
+│   └── Dockerfile
 ├── python-producer......... # Produces messages to kafka
+│   ├── Dockerfile
 │   └── producer.py
 ├── README.md
-├── run.sh.................. # Runs the entire environment
+├── run.sh
 └── spark-streaming......... # Consume streaming data from kafka and sinks to console
     ├── python.............. # Streaming with python (Work In Progress)
     └── scala............... # Streaming with scala
@@ -78,6 +70,11 @@ Please make sure those versions are installed on your computer:
 | spark UI                 | 172.18.0.10:8080 |
 | spark worker 1           | 172.18.0.11      |
 | spark worker 2           | 172.18.0.12      |
+| spark-streaming-kafka    | 172.18.0.13      |
+| nodejs-producer          | 172.18.0.14      |
+| nodejs-consumer          | 172.18.0.15      |
+| python-producer          | 172.18.0.16      |
+| python-consumer          | 172.18.0.17      |
 
 The project creates a docker network name "kafka-spark" on the address range 172.18.0.0/24
 
@@ -86,66 +83,46 @@ The project creates a docker network name "kafka-spark" on the address range 172
 > Note: You can go through the docker-compose.yml or the run.sh files to better understand how things work. 
 
 ### 1. Clone the repo and cd into the folder
+
 ```
     git clone https://github.com/MDiakhate12/kafka-spark-streaming-docker.git
     cd kafka-spark-streaming-docker/
 ```
 
-### 2. Make run.sh and clean.sh files executable
+### 2. Run docker-compose.yml
+
+> Important: Don't close the terminal after you have executed docker-compose <br>
+
 ```
-sudo chmod +x run.sh clean-env.sh
+docker-compose up # Wait until all services are up
 ```
 
-### 3. Execute the run.sh (make sure to have root privileges) 
-```
-source run.sh
-```
-> !Important: Don't close the terminal after you have executed run.sh <br>
-> Note: You might be prompted to enter your root password if your user do not have enough privileges
+### 3. Submit the spark streaming job
 
-### 4. Execute one or two producers
-> Note: Please replace /PATH/TO/YOUR/FOLDER with the folder your have cloned the repo into. <br>
-> Note: The NodeJS and Python consumers can be run the same way list below.
-
-Open another terminal and do:
-
-1. For NodeJS producer:
-```bash
-# Go to the node-producer folder
-cd /PATH/TO/YOUR/FOLDER/kafka-spark-streaming-docker/node-producer
-
-# Run the command:
-node producer.js
-```
-2.  For Python producer:
+> Important: Be sure to be in the <kafka-spark-streaming-docker> folder
 
 ```bash
-# Go to the python-producer folder
-cd /PATH/TO/YOUR/FOLDER/kafka-spark-streaming-docker/python-producer
-
-# Activate the python virtual environment:
-source ../venv/bin/activate # if you are in the right folder, this relative path should work
-
-# Run this command:
-python3 producer.py
+sudo chmod 777 jars_dir && \
+docker exec -it spark \
+spark-submit \
+--packages "org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.0" \
+--master "spark://172.18.0.10:7077" \
+--class Streaming \
+--conf spark.jars.ivy=/opt/bitnami/spark/ivy \
+ivy/spark-streaming-with-kafka_2.12-1.0.jar
 ```
-### 5. Look at the result
 
-#### On console
-Go back to the terminal (where you have executed run.sh) and look at the output.
-You will see that it prints continuously data received from producer(s) in a a tabular format with key and value.
-
-Your output will look like this
+After everything is set, your output should look like this:
 
 ![Screenshot from 2021-11-15 05-15-41](https://user-images.githubusercontent.com/46793415/141721499-a248453e-4a7f-4d5e-88ea-c353de7922b9.png)
 
-#### On UI
+That's it 🎉🎉 Congratulation.
 
-The spark UI is available at http://172.18.0.10:8080
+## Look at the result
 
-#### Logs
+> Note: The spark UI is available at http://172.18.0.10:8080
 
-You can follow logs of a service by using : <br>
+On a new terminal, you can see logs of each service by running:
 
 ```
 docker-compose logs -f [SERVICE_NAME]
@@ -157,3 +134,8 @@ Available services are:
 3.  spark
 4.  spark-worker-1
 5.  spark-worker-2
+6.  spark-streaming-kafka
+7.  nodejs-producer
+8.  nodejs-consumer
+9.  python-producer
+10. python-consumer
