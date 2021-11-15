@@ -128,13 +128,7 @@ You will see that it prints continuously data received from producer(s) in a a t
 
 Your output will look like this
 
-Batch: 2
--------------------------------------------
-+--------------+--------------------+
-|           key|               value|
-+--------------+--------------------+
-|nodejs-message|Hello From NodeJS...|
-+--------------+--------------------+
+![Screenshot from 2021-11-15 05-15-41](https://user-images.githubusercontent.com/46793415/141721499-a248453e-4a7f-4d5e-88ea-c353de7922b9.png)
 
 #### On UI
 
