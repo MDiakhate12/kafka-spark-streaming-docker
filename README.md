@@ -84,6 +84,8 @@ The project creates a docker network name "kafka-spark" on the address range 172
 
 ### 1. Clone the repo and cd into the folder
 
+> Note: Be sure to be into the <kafka-spark-streaming-docker> directory
+
 ```
     git clone https://github.com/MDiakhate12/kafka-spark-streaming-docker.git
     cd kafka-spark-streaming-docker/
@@ -94,12 +96,15 @@ The project creates a docker network name "kafka-spark" on the address range 172
 > Important: Don't close the terminal after you have executed docker-compose <br>
 
 ```
-docker-compose up # Wait until all services are up
+docker-compose up 
 ```
+> Note: Wait until all services are up (about 1 to 2 minutes, the console will be quite idle)
 
 ### 3. Submit the spark streaming job
 
-> Important: Be sure to be in the <kafka-spark-streaming-docker> folder
+> Note: Be sure to have root privileges
+
+On a new terminal run the command
 
 ```bash
 sudo chmod 777 jars_dir && \
@@ -116,7 +121,7 @@ After everything is set, your output should look like this:
 
 ![Screenshot from 2021-11-15 05-15-41](https://user-images.githubusercontent.com/46793415/141721499-a248453e-4a7f-4d5e-88ea-c353de7922b9.png)
 
-That's it 🎉🎉 Congratulation.
+That's it 🎉🎉   Congratulation.
 
 ## Look at the result
 
