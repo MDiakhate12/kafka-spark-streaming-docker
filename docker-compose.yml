@@ -1,0 +1,101 @@
+version: "2"
+
+
+networks:
+  kafka-spark:
+    name: kafka-spark
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.7
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.8
+  kafka:
+    image: docker.io/bitnami/kafka:3
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://172.18.0.9:9093
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.9
+    depends_on:
+      - zookeeper
+    
+  spark:
+    image: docker.io/bitnami/spark:3
+    container_name: spark
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - '8080:8080'
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.10
+    volumes:
+      - ./jars_dir:/opt/bitnami/spark/ivy:z
+
+  spark-worker-1:
+    image: docker.io/bitnami/spark:3
+    container_name: spark-worker-1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.11
+
+  spark-worker-2:
+    image: docker.io/bitnami/spark:3
+    container_name: spark-worker-2
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.12
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local

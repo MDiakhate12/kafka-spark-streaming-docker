@@ -1,0 +1,17 @@
+nodejs-consumer/node_modules/
+nodejs-producer/node_modules/
+
+nodejs-consumer/package-lock.json
+nodejs-producer/package-lock.json
+
+spark-streaming/scala/target/
+spark-streaming/scala/.vscode/
+spark-streaming/scala/.metals/
+spark-streaming/scala/.bloop/
+
+jars_dir/
+
+.vscode/
+.metals/
+
+venv/
