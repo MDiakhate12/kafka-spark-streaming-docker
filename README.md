@@ -91,7 +91,7 @@ The project creates a docker network name "kafka-spark" on the address range 172
 
 > The spark UI will be available at http://172.18.0.10:8080
 > You can follow logs of a service by using : <br>
-> `docker-compose logs -f [SERVICE_NAME]`
+> `docker-compose logs -f [SERVICE_NAME]` <br>
 > Available services are:
 1.  zookeeper
 2.  kafka
