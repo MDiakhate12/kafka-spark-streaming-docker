@@ -19,6 +19,8 @@ You can then dive deeper into code and play around with it to get your hands dir
 
 ## Requirements
 
+> Note: A fully dockerized version will be available soon 😊, this will eliminate the need of version requirements 
+
 Please make sure those versions are installed on your computer:
 *   docker >= 19.X.X
 *   docker-compose ~1.29.2
@@ -29,8 +31,6 @@ Please make sure those versions are installed on your computer:
 *   sbt =1.5.5 (important!)
 *   node ~14.X.X
 *   npm ~8.X.X
-
-> A fully dockerized version will be available soon 😊, this will remove the need of version requirements 
 
 > Please make sure:
 *   you can run commands with root privileges on your computer
