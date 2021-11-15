@@ -77,17 +77,20 @@ The project creates a docker network name "kafka-spark" on the address range 172
 > Note: You can go through the docker-compose.yml or the run.sh files to better understand how things work. 
 
 ### 1. Clone the repo and cd into the folder
-
 ```
     git clone https://github.com/MDiakhate12/kafka-spark-streaming-docker.git
     cd kafka-spark-streaming-docker/
 ```
 
 ### 2. Make run.sh and clean.sh files executable
-`sudo chmod +x run.sh clean-env.sh`
+```
+sudo chmod +x run.sh clean-env.sh
+```
 
 ### 3. Execute the run.sh (make sure to have root privileges) 
-`sudo source run.sh`
+```
+sudo source run.sh
+```
 
 The spark UI will be available at http://172.18.0.10:8080
 
