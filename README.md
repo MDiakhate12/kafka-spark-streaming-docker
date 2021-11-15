@@ -53,7 +53,6 @@ You can then dive deeper into code and play around with it to get your hands dir
 │   ├── Dockerfile
 │   └── producer.py
 ├── README.md
-├── run.sh
 └── spark-streaming......... # Consume streaming data from kafka and sinks to console
     ├── python.............. # Streaming with python (Work In Progress)
     └── scala............... # Streaming with scala
