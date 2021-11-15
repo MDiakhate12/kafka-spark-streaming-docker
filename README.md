@@ -89,7 +89,7 @@ sudo chmod +x run.sh clean-env.sh
 
 ### 3. Execute the run.sh (make sure to have root privileges) 
 ```
-sudo source run.sh
+source run.sh
 ```
 
 The spark UI will be available at http://172.18.0.10:8080
