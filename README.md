@@ -26,7 +26,7 @@ Please make sure those versions are installed on your computer:
 *   Docker & Docker Compose (https://docs.docker.com/engine/install/ubuntu/)
     *   docker >= 19.X.X 
     *   docker-compose ~1.29.2
-*   Python, Pip3 & Python3 Virtual Env (sudo apt update && sudo apt install python3 python3-pip python3-venv)
+*   Python, Pip3 & Python3 Virtual Env (`sudo apt update && sudo apt install python3 python3-pip python3-venv`)
     *   python3 ~3.8.10 
     *   pip ~20.0.2 (pip3)
 *   Scala and SBT (https://docs.scala-lang.org/getting-started/index.html)
