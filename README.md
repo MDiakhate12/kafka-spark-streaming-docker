@@ -1,4 +1,4 @@
-# Streaming data from Kafka Topic to Spark using Spark Streaming
+# Streaming data from Kafka Topic to Spark using Spark Structured Streaming
 
 ## Workflow
 
