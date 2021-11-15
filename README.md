@@ -7,6 +7,8 @@ A docker-compose file initialize a kafka cluster and a spark cluster with all th
 Producers send text messages to kafka a topic named "test-topic".
 You can either consume messages with consumers scripts written in NodeJS and Python or stream data with spark streaming which simply print on the console all received data.
 
+> Warning: The data streaming only works with spark in scala for now, python version is in progress
+
 <img src="architecture.png" />
 
 Everything is automatic in this project.
