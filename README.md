@@ -30,6 +30,8 @@ Please make sure those versions are installed on your computer:
 *   node ~14.X.X
 *   npm ~8.X.X
 
+> A fully dockerized version will be available soon 😊, this will remove the need of version requirements 
+
 > Please make sure:
 *   you can run commands with root privileges on your computer
 *   your port 8080 is not in use
