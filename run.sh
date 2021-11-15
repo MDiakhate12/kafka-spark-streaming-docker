@@ -6,8 +6,10 @@ python3 -m venv venv && \
  pip3 install pyspark kafka-python
 
 # Download dependencies for nodejs apps
-cd nodejs-consumer && npm install && cd .. && \ 
-cd nodejs-producer && npm install && cd .. && pwd
+cd nodejs-consumer && npm install && \
+cd .. && \
+cd nodejs-producer && npm install && \
+cd ..
 
 # Create the jars directory for packaged app
 mkdir jars_dir
@@ -24,7 +26,8 @@ sleep 7
 # Create jar file and copy it into jars_dir
 cd spark-streaming/scala && \
  sbt package && \
- cp target/scala-2.12/spark-streaming-with-kafka_2.12-1.0.jar ../../jars_dir/
+ cp target/scala-2.12/spark-streaming-with-kafka_2.12-1.0.jar ../../jars_dir/ && \ 
+ cd ..
 
 # Execute the application with spark-submit
 docker exec -it spark \
