@@ -6,7 +6,7 @@ object Streaming {
     val spark = SparkSession
       .builder()
       .appName("Spark Streaming With Scala and Kafka")
-      .master("spark://172.18.0.10:7077")
+      .master("spark://spark:7077")
       .getOrCreate()
 
     import spark.implicits._
@@ -15,7 +15,7 @@ object Streaming {
 
     val df = spark.readStream
       .format("kafka")
-      .option("kafka.bootstrap.servers", "172.18.0.9:9093")
+      .option("kafka.bootstrap.servers", "kafka:9092")
       .option("subscribe", "test-topic")
       .load()
 

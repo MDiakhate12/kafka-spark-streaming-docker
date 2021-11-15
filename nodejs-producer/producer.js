@@ -1,7 +1,7 @@
 const { Kafka, CompressionTypes } = require("kafkajs");
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const kafka = new Kafka({
     clientId: process.env.PRODUCER_CLIENT_ID,

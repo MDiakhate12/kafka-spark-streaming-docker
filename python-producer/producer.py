@@ -1,7 +1,7 @@
 from kafka import KafkaProducer
 import time
 
-producer = KafkaProducer(bootstrap_servers="172.18.0.9:9093")
+producer = KafkaProducer(bootstrap_servers="kafka:9092")
 
 while True:
 

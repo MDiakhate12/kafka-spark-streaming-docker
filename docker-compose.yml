@@ -61,6 +61,8 @@ services:
         ipv4_address: 172.18.0.10
     volumes:
       - ./jars_dir:/opt/bitnami/spark/ivy:z
+    depends_on:
+      - spark-streaming-scala
 
   spark-worker-1:
     image: docker.io/bitnami/spark:3
@@ -93,6 +95,51 @@ services:
     networks:
       kafka-spark:
         ipv4_address: 172.18.0.12
+    
+  spark-streaming-scala:
+    container_name: spark-streaming-scala
+    image: docker.io/mdiakhate12/spark-kafka-streaming
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.13
+    volumes:
+      - ./jars_dir:/usr/src/app/target/scala-2.12/
+
+  nodejs-producer:
+    container_name: nodejs-producer
+    image: docker.io/mdiakhate12/nodejs-producer-kafka
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.14
+    depends_on:
+      - kafka
+    
+  nodejs-consumer:
+    container_name: nodejs-consumer
+    image: docker.io/mdiakhate12/nodejs-consumer-kafka
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.15
+    depends_on:
+      - kafka
+
+  python-producer:
+    container_name: python-producer
+    image: docker.io/mdiakhate12/python-producer-kafka
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.16
+    depends_on:
+      - kafka
+
+  python-consumer:
+    container_name: python-consumer
+    image: docker.io/mdiakhate12/python-consumer-kafka
+    networks:
+      kafka-spark:
+        ipv4_address: 172.18.0.17
+    depends_on:
+      - kafka
 
 volumes:
   zookeeper_data:

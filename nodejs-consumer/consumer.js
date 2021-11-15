@@ -1,7 +1,7 @@
 const { Kafka } = require("kafkajs");
 const dotenv = require("dotenv");
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const { CONSUMER_CLIENT_ID, BROKERS, TOPIC, GROUP_ID } = process.env
 
