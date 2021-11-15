@@ -91,8 +91,56 @@ sudo chmod +x run.sh clean-env.sh
 ```
 source run.sh
 ```
+> !Important: Don't close the terminal after you have executed run.sh
+> Note: You might be prompted to enter your root password if your user do not have enough privileges
 
-The spark UI will be available at http://172.18.0.10:8080
+### 4. Execute one or two producers
+> Note: Please replace /PATH/TO/YOUR/FOLDER with the folder your have cloned the repo into.
+> Note: The NodeJS and Python consumers can be run the same way list below
+
+Open another terminal and do:
+
+1. For NodeJS producer:
+```bash
+# Go to the node-producer folder
+cd /PATH/TO/YOUR/FOLDER/kafka-spark-streaming-docker/node-producer
+
+# Run the command:
+node producer.js
+```
+2.  For Python producer:
+
+```bash
+# Go to the python-producer folder
+cd /PATH/TO/YOUR/FOLDER/kafka-spark-streaming-docker/python-producer
+
+# Activate the python virtual environment:
+source ../venv/bin/activate # if you are in the right folder, this relative path should work
+
+# Run this command:
+python3 producer.py
+```
+### 5. Look at the result
+
+#### On console
+Go back to the terminal (where you have executed run.sh) and look at the output.
+You will see that it prints continuously data received from producer(s) in a a tabular format with key and value.
+
+Your output will look like this
+
+Batch: 2
+-------------------------------------------
++--------------+--------------------+
+|           key|               value|
++--------------+--------------------+
+|nodejs-message|Hello From NodeJS...|
++--------------+--------------------+
+
+#### On UI
+
+The spark UI is available at http://172.18.0.10:8080
+
+#### Logs
 
 You can follow logs of a service by using : <br>
 
