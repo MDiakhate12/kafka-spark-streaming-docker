@@ -3,7 +3,8 @@
 # Create and activate a virtual environment then install pyspark and kafka-python
 python3 -m venv venv && \
  source venv/bin/activate && \
- pip3 install pyspark kafka-python
+ pip3 install pyspark kafka-python && \
+ deactivate
 
 echo "# Download dependencies for nodejs apps"
 cd nodejs-consumer && npm install && \
