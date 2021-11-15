@@ -24,6 +24,7 @@ Please make sure those versions are installed on your computer:
 *   python3-v
 *   pip ~20.0.2 (pip3)
 *   scala =2.12.15 (important !)
+*   sbt =1.5.5 (important!)
 *   node ~14.X.X
 *   npm ~8.X.X
 
