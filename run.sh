@@ -6,8 +6,8 @@ python3 -m venv venv && \
  pip3 install pyspark kafka-python
 
 # Download dependencies for nodejs apps
-cd nodejs-consumer && npm install
-cd nodejs-producer && npm install
+cd nodejs-consumer && npm install && cd .. && \ 
+cd nodejs-producer && npm install && cd .. && pwd
 
 # Create the jars directory for packaged app
 mkdir jars_dir
